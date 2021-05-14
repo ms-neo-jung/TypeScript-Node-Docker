@@ -1,4 +1,6 @@
 const path = require("path");
+// const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+// const tsConfigPath = path.resolve(__dirname, "./tsconfig.json");
 
 const config = {
   entry: "./src/index.ts",
@@ -17,6 +19,7 @@ const config = {
   },
   resolve: {
     extensions: [".ts", ".js", ".json"],
+    // plugins: [new TsconfigPathsPlugin({ configFile: tsConfigPath })],
   },
 };
 

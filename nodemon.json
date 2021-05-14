@@ -1,7 +1,6 @@
 {
   "verbose": true,
+  "delay": "2000",
   "watch": ["src/**/*.ts"],
-  "execMap": {
-    "ts": "node --inspect=0.0.0.0:9229 --nolazy -r ts-node/register"
-  }
+  "exec": "ts-node -r tsconfig-paths/register --project tsconfig.json src/index.ts"
 }
