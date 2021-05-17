@@ -3,6 +3,8 @@ import { test1 } from "./lib";
 // import { Lib2 } from "@src/lib2";
 import { Lib2 } from "./lib2";
 
+console.log(">> ENV ", process.env.TEST);
+
 const app = express();
 const server = app.listen(6000, () => {
   console.log("server running on port 6000");

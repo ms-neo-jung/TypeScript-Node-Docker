@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_PATH=./dist node dist/index.js",
+    "start": "NODE_PATH=./dist node -r dotenv/config dist/index.js",
     "build": "webpack --config webpack.config.js",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon  src/index.ts dotenv_config_path=./.env.local",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -25,6 +25,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.169",
     "awesome-typescript-loader": "^5.2.1",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
