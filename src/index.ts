@@ -1,11 +1,19 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { test1 } from "./lib";
 // import { Lib2 } from "@src/lib2";
 import { Lib2 } from "./lib2";
 
-console.log(">> ENV ", process.env.TEST);
+console.log(">> ENV ! ", process.env.TEST);
 
 const app = express();
+
+app.get("/test", (req: Request, res: Response) => {
+  console.log("api ", req.body);
+
+  // return res.status(200).json("ok");
+  return res.send("ok");
+});
+
 const server = app.listen(6000, () => {
   console.log("server running on port 6000");
   console.log("test 1", test1());

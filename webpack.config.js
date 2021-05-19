@@ -1,70 +1,43 @@
-const path = require("path");
-// const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-// const tsConfigPath = path.resolve(__dirname, "./tsconfig.json");
-
-const config = {
-  entry: "./src/index.ts",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
-  },
-  target: "node",
-  module: {
-    rules: [
-      // { test: /\.css$/, use: "css-loader" },
-      { test: /\.ts$/, use: "awesome-typescript-loader" },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-      { enforce: "pre", test: /\.ts$/, loader: "tslint-loader" },
-    ],
-  },
-  resolve: {
-    extensions: [".ts", ".js", ".json"],
-    // plugins: [new TsconfigPathsPlugin({ configFile: tsConfigPath })],
-  },
-};
-
-module.exports = config;
-/*
+// webpack.config.js
 const path = require("path");
 const webpack = require("webpack");
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const nodeExternals = require('webpack-node-externals');
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const tsConfigPath = path.resolve(__dirname, "./tsconfig.json");
 
 module.exports = {
-  entry: {
-    // app: "./build/index.js",
-    app: "./src/index.ts",
-  },
-  // plugins: [
-  //   new CleanWebpackPlugin(['dist']),
-  //   new webpack.IgnorePlugin(/vertx/),
-  //   new CopyWebpackPlugin([
-  //     { from: './src/config.js' }
-  //   ])
-  // ],
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-  },
+  entry: "./src/index.ts",
   target: "node",
-  // externals: [nodeExternals()],
+  mode: "production",
   module: {
     rules: [
-      // { test: /\.css$/, use: "css-loader" },
-      { test: /\.ts$/, use: "awesome-typescript-loader" },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-      { enforce: "pre", test: /\.ts$/, loader: "tslint-loader" },
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+              presets: [["@babel/preset-env", { targets: { node: "8" } }]],
+            },
+          },
+          "ts-loader",
+        ],
+        exclude: /node_modules/,
+      },
     ],
-
-    exprContextCritical: false,
   },
+  plugins: [
+    // new webpack.BannerPlugin({ banner: "#!/usr/bin/env node", raw: true })
+  ],
   resolve: {
-    extensions: [".ts", ".js", ".json"],
+    extensions: [".ts", ".js"],
+    plugins: [new TsconfigPathsPlugin({ configFile: tsConfigPath })],
   },
-  // module: {
-  // },
+  output: {
+    filename: "index.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  stats: {
+    colors: true,
+  },
 };
-
-*/
